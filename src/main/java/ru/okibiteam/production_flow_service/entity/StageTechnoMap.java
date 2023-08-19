@@ -8,12 +8,12 @@ import javax.persistence.*;
 @Table(name = "stage_techno_map")
 @Data
 public class StageTechnoMap {
-    @Id
+    @EmbeddedId
+    private StageTechnoMapId id;
     @ManyToOne
-    @JoinColumn(name = "stage_id", referencedColumnName = "id")
+    @JoinColumn(name = "stage_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Stages stages;
-    @Id
     @ManyToOne
-    @JoinColumn(name = "techno_map_id", referencedColumnName = "id")
+    @JoinColumn(name = "techno_map_id", referencedColumnName = "id", insertable = false, updatable = false)
     private TechnoMaps technoMaps;
 }
