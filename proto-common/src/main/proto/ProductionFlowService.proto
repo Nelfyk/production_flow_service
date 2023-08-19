@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/duration.proto";
+
+package ru.okibiteam.production_flow_service;
+
+option java_multiple_files = true;
+option java_package = "ru.okibiteam.production_flow_service";
+
+service ProductionFlowService{
+    rpc getAllCommodityItems(google.protobuf.Empty) returns (stream CommodityItem) {}
+    rpc getAllWorkShopMap(google.protobuf.Empty) returns (WorkShopMap) {}
+    rpc createTechnoMap(CreateTechnoMapRequest) returns(CreateTechnoMapResponse) {}
+    rpc getTechnoMapStages(TechnoMap) returns (TechnoMapStages) {}
+}
+
+// 1. получение товарных позиций с технологическими картами(id,название)
+// 2. Получение технокарты по id
+
+enum ResponseStatus {
+    SUCCESS = 0;
+    ERROR = 1;
+}
+
+message CreateTechnoMapResponse{
+    ResponseStatus status = 1;
+    TechnoMap technoMap = 2;
+}
+
+message Coordinates{
+    int32 x = 1;
+    int32 y = 2;
+}
+
+message EquipmentsOnMap{
+    int32 equipmentId = 1;
+    repeated Coordinates equipments = 2;
+}
+
+message WorkShopMap{
+    bytes mapImage = 1;
+    repeated EquipmentsOnMap equipments = 2;
+}
+
+message CommodityItem {
+    int32 id = 1;
+    string name = 2;
+    repeated TechnoMap technoMap = 3;
+}
+
+message TechnoMap {
+    int32 id = 1;
+    string name = 2;
+}
+
+message Decimal{
+    int64 integerPart = 1;
+    int32 fractionalPart = 2;
+}
+
+message CreateTechnoMapRequest {
+    string name = 1;
+    int32 commodityItemId = 2;
+    TechnoMapStages stages = 3;
+}
+
+message Stage{
+    string name = 1;
+    int32 indexInTechnomap = 2;
+    google.protobuf.Duration timeSpent = 3;
+    Decimal moneyExpensesInRubles = 4;
+    int32 workshopMapId = 5;
+    int32 equipmentInstanceId = 6;
+}
+
+message TechnoMapStages{
+    TechnoMap technoMap = 1;
+    repeated Stage stages = 2;
+}
