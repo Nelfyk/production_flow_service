@@ -2,6 +2,7 @@ syntax = "proto3";
 package ru.okibiteam.production_flow_service;
 
 option java_multiple_files = true;
+option java_package = "ru.okibiteam.production_flow_service";
 
 service GreetingService {
   rpc greeting(HelloRequest) returns(stream HelloResponse);
