@@ -1,13 +1,13 @@
-package ru.okibiteam.production_flow_service.entity;
+package ru.okibiteam.production_flow_service.entity.postgres;
 
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "commodity_items")
+@Table(name = "commodity_item")
 @Data
-public class CommodityItems {
+public class CommodityItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

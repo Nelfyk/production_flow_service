@@ -1,4 +1,4 @@
-package ru.okibiteam.production_flow_service.entity;
+package ru.okibiteam.production_flow_service.entity.postgres;
 
 import lombok.Data;
 
@@ -15,5 +15,5 @@ public class StageTechnoMap {
     private Stages stages;
     @ManyToOne
     @JoinColumn(name = "techno_map_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private TechnoMaps technoMaps;
+    private TechnoMapEntity technoMapEntity;
 }

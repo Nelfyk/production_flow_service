@@ -1,5 +1,4 @@
-package ru.okibiteam.production_flow_service.entity;
-
+package ru.okibiteam.production_flow_service.entity.postgres;
 
 import lombok.Data;
 
@@ -9,10 +8,9 @@ import java.io.Serializable;
 
 @Embeddable
 @Data
-public class StageTechnoMapId implements Serializable {
+public class InputCommodityItemId implements Serializable {
+    @Column(name = "commodity_item_id")
+    private Integer commodityItemId;
     @Column(name = "stage_id")
     private Integer stageId;
-
-    @Column(name = "techno_map_id")
-    private Integer technoMapId;
 }

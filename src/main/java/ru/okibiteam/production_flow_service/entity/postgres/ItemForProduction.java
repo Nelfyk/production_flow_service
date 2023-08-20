@@ -1,7 +1,6 @@
-package ru.okibiteam.production_flow_service.entity;
+package ru.okibiteam.production_flow_service.entity.postgres;
 
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -14,4 +13,7 @@ public class ItemForProduction {
     private int id;
     @Column(name = "name")
     private String name;
+    @OneToOne
+    @JoinColumn(name = "created_stage", referencedColumnName = "id")
+    private Stages stages;
 }

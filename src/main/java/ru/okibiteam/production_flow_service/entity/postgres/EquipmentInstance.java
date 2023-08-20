@@ -1,11 +1,11 @@
-package ru.okibiteam.production_flow_service.entity;
+package ru.okibiteam.production_flow_service.entity.postgres;
 
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "equipment")
+@Table(name = "equipment_instance")
 @Data
 public class EquipmentInstance {
     @Id

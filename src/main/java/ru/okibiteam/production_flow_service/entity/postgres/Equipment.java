@@ -1,4 +1,4 @@
-package ru.okibiteam.production_flow_service.entity;
+package ru.okibiteam.production_flow_service.entity.postgres;
 
 import lombok.Data;
 
@@ -13,7 +13,4 @@ public class Equipment {
     private int id;
     @Column(name = "name")
     private String name;
-    @OneToOne
-    @JoinColumn(name = "item_for_production_id", referencedColumnName = "id")
-    private ItemForProduction itemForProduction;
 }

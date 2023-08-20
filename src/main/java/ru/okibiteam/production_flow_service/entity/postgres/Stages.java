@@ -1,7 +1,6 @@
-package ru.okibiteam.production_flow_service.entity;
+package ru.okibiteam.production_flow_service.entity.postgres;
 
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -29,4 +28,7 @@ public class Stages {
     private ZonedDateTime createTime;
     @Column(name = "creater_id")
     private int createrId;
+    @OneToOne
+    @JoinColumn(name = "equipment_instance_id", referencedColumnName = "id")
+    private EquipmentInstance equipmentInstance;
 }
