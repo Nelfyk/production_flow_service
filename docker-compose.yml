@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  production_flow_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - backend
+    ports:
+      - "20003:8081"
+    depends_on:
+      - production_flow_service_postgresql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://production_flow_service_postgresql:5432/production_flow
+  production_flow_service_postgresql:
+    image: postgres:14.8-alpine
+    networks:
+      - backend
+    ports:
+      - "20004:5432"
+    environment:
+      - POSTGRES_DB=production_flow
+      - POSTGRES_USER=bestuser
+      - POSTGRES_PASSWORD=bestuser
+    volumes:
+      - ./etc/production_flow_service/database:/var/lib/postgresql/data:rw
+      - ./src/main/resources/psql.sql:/docker-entrypoint-initdb.d/psql.sql
+networks:
+  backend:
+    name: production_flow_service-network
