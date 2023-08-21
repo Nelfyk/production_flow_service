@@ -13,4 +13,11 @@ public class CommodityItem {
     private int id;
     @Column(name = "name")
     private String name;
+
+    public CommodityItem() {
+    }
+
+    public CommodityItem(String name) {
+        this.name = name;
+    }
 }

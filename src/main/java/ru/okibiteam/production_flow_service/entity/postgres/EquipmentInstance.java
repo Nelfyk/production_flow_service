@@ -11,8 +11,8 @@ public class EquipmentInstance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "name")
-    private String name;
+    @Column(name = "serial_number")
+    private String serialNumber;
     @OneToOne
     @JoinColumn(name = "equipment_id", referencedColumnName = "id")
     private Equipment equipment;

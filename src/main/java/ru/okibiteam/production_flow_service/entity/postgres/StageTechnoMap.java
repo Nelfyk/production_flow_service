@@ -8,12 +8,14 @@ import javax.persistence.*;
 @Table(name = "stage_techno_map")
 @Data
 public class StageTechnoMap {
-    @EmbeddedId
-    private StageTechnoMapId id;
+    //    @EmbeddedId
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     @ManyToOne
-    @JoinColumn(name = "stage_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private Stages stages;
+    @JoinColumn(name = "stage_id", referencedColumnName = "id")
+    private StageEntity stageEntity;
     @ManyToOne
-    @JoinColumn(name = "techno_map_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "techno_map_id", referencedColumnName = "id")
     private TechnoMapEntity technoMapEntity;
 }

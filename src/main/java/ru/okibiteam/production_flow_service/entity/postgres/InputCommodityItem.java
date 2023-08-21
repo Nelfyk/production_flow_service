@@ -8,12 +8,22 @@ import javax.persistence.*;
 @Table(name = "input_commodity_items")
 @Data
 public class InputCommodityItem {
-    @EmbeddedId
-    private InputCommodityItemId id;
+//    @EmbeddedId
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     @OneToOne
-    @JoinColumn(name = "commodity_item_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "commodity_item_id", referencedColumnName = "id")
     private CommodityItem commodityItem;
     @OneToOne
-    @JoinColumn(name = "stage_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private Stages stages;
+    @JoinColumn(name = "stage_id", referencedColumnName = "id")
+    private StageEntity stageEntity;
+
+    public InputCommodityItem() {
+    }
+
+    public InputCommodityItem(CommodityItem commodityItem, StageEntity stageEntity) {
+        this.commodityItem = commodityItem;
+        this.stageEntity = stageEntity;
+    }
 }

@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
+import java.util.List;
 import java.util.Map;
 
 @Document(collation = "work_shop_map")
@@ -17,12 +18,12 @@ public class WorkShopMapEntity {
     @Field(name = "content_type")
     private String contentType;
     @Field(name = "image_data")
-    private Map<Integer, Equipment> equipments;
+    private List<Equipment> equipments;
 
     public WorkShopMapEntity() {
     }
 
-    public WorkShopMapEntity(String filename, String contentType, Map<Integer, Equipment> equipments) {
+    public WorkShopMapEntity(String filename, String contentType, List<Equipment> equipments) {
         this.filename = filename;
         this.contentType = contentType;
         this.equipments = equipments;

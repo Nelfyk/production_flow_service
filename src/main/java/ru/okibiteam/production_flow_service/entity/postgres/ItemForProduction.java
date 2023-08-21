@@ -15,5 +15,13 @@ public class ItemForProduction {
     private String name;
     @OneToOne
     @JoinColumn(name = "created_stage", referencedColumnName = "id")
-    private Stages stages;
+    private StageEntity stageEntity;
+
+    public ItemForProduction() {
+    }
+
+    public ItemForProduction(String name, StageEntity stageEntity) {
+        this.name = name;
+        this.stageEntity = stageEntity;
+    }
 }

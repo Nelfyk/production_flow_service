@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "techno_maps")
+@Table(name = "techno_map")
 @Data
 public class TechnoMapEntity {
     @Id
@@ -16,4 +16,12 @@ public class TechnoMapEntity {
     @OneToOne
     @JoinColumn(name = "commodity_item_id", referencedColumnName = "id")
     private CommodityItem commodityItem;
+
+    public TechnoMapEntity() {
+    }
+
+    public TechnoMapEntity(String name, CommodityItem commodityItem) {
+        this.name = name;
+        this.commodityItem = commodityItem;
+    }
 }

@@ -6,5 +6,5 @@ import ru.okibiteam.production_flow_service.entity.postgres.StageTechnoMap;
 import ru.okibiteam.production_flow_service.entity.postgres.StageTechnoMapId;
 
 @Repository
-public interface StageTechnoMapRepository extends JpaRepository<StageTechnoMap, StageTechnoMapId> {
+public interface StageTechnoMapRepository extends JpaRepository<StageTechnoMap, Integer> {
 }

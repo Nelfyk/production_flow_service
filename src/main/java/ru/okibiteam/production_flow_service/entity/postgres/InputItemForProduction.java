@@ -3,17 +3,28 @@ package ru.okibiteam.production_flow_service.entity.postgres;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "input_item_for_production")
 @Data
 public class InputItemForProduction {
-    @EmbeddedId
-    private InputItemForProductionId id;
+    //    @EmbeddedId
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     @OneToOne
-    @JoinColumn(name = "item_for_production_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "item_for_production_id", referencedColumnName = "id")
     private ItemForProduction itemForProduction;
     @OneToOne
-    @JoinColumn(name = "stage_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private Stages stages;
+    @JoinColumn(name = "stage_id", referencedColumnName = "id")
+    private StageEntity stageEntity;
+
+    public InputItemForProduction() {
+    }
+
+    public InputItemForProduction(ItemForProduction itemForProduction, StageEntity stageEntity) {
+        this.itemForProduction = itemForProduction;
+        this.stageEntity = stageEntity;
+    }
 }
