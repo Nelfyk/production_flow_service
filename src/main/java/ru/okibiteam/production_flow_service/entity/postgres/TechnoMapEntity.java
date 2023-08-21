@@ -16,7 +16,6 @@ public class TechnoMapEntity {
     @OneToOne
     @JoinColumn(name = "commodity_item_id", referencedColumnName = "id")
     private CommodityItem commodityItem;
-
     public TechnoMapEntity() {
     }
 

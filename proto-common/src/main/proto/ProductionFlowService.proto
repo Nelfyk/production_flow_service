@@ -2,7 +2,6 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/duration.proto";
-import "google/rpc/status.proto";
 
 package ru.okibiteam.production_flow_service.grpc;
 
@@ -75,17 +74,15 @@ message Stage {
 }
 
 message CommodityItemResponse {
-  google.rpc.Status status = 1;
-  int32 id = 2;
-  string name = 3;
-  string technoMapName = 4;
-  int32 technoMapId = 5;
+  int32 id = 1;
+  string name = 2;
+  string technoMapName = 3;
+  int32 technoMapId = 4;
 }
 
 message WorkShopMapResponse {
-  google.rpc.Status status = 1;
-  int32 id = 2;
-  WorkShopMap workShopMap = 3;
+  int32 id = 1;
+  WorkShopMap workShopMap = 2;
 }
 
 message TechnoMapRequest {
@@ -93,9 +90,8 @@ message TechnoMapRequest {
 }
 
 message TechnoMapResponse {
-  google.rpc.Status status = 1;
-  int32 id = 2;
-  TechnoMap technoMap = 3;
+  int32 id = 1;
+  TechnoMap technoMap = 2;
 }
 
 message CreateTechnoMapRequest {
@@ -105,6 +101,5 @@ message CreateTechnoMapRequest {
 }
 
 message CreateTechnoMapResponse {
-  google.rpc.Status status = 1;
-  int32 technoMapId = 2;
+  int32 technoMapId = 1;
 }
