@@ -1,0 +1,7 @@
+FROM postgres:14.8-alpine
+
+ENV POSTGRES_DB=production_flow
+ENV POSTGRES_USER=bestuser
+ENV POSTGRES_PASSWORD=bestuser
+
+COPY ./src/main/resources/psql.sql /docker-entrypoint-initdb.d/

@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/duration.proto";
+
+package ru.okibiteam.production_flow_service.grpc;
+
+option java_multiple_files = true;
+option java_package = "ru.okibiteam.production_flow_service.grpc";
+
+service ProductionFlowService {
+  rpc getAllCommodityItems(google.protobuf.Empty) returns (stream CommodityItemResponse) {}
+  rpc createWorkShopMap(WorkShopMap) returns(WorkShopMapResponse) {}
+  rpc getAllWorkShopMap(google.protobuf.Empty) returns (stream WorkShopMapResponse) {}
+  rpc createTechnoMap(CreateTechnoMapRequest) returns(CreateTechnoMapResponse) {}
+  rpc getTechnoMap(TechnoMapRequest) returns (TechnoMapResponse) {}
+}
+
+message Decimal {
+  int64 integerPart = 1;
+  int32 fractionalPart = 2;
+}
+
+message Equipment {
+  string name = 1;
+}
+
+message EquipmentInstance {
+  string name = 1;
+  Equipment equipment = 2;
+}
+
+message Coordinates {
+  int32 x = 1;
+  int32 y = 2;
+}
+
+message EquipmentsOnMap {
+  EquipmentInstance equipmentInstance = 1;
+  repeated Coordinates coordinates = 2;
+}
+
+message WorkShopMap {
+  string fileName = 1;
+  bytes mapImage = 2;
+  repeated EquipmentsOnMap equipments = 3;
+}
+
+message TechnoMap {
+  string name = 1;
+  repeated Stage stages = 2;
+}
+
+message ItemForProduction {
+  int32 id = 1;
+  string name = 2;
+}
+
+message CommodityItem {
+  int32 id = 1;
+  string name = 2;
+}
+
+message Stage {
+  string name = 1;
+  int32 indexInTechnoMap = 2;
+  uint32 timeSpent = 3;
+  Decimal moneyExpensesInRubles = 4;
+  int32 workshopMapId = 5;
+  int32 equipmentInstanceId = 6;
+  int32 createrId = 7;
+  repeated ItemForProduction inputItemsForProduction = 8;
+  repeated CommodityItem inputCommodityItem = 9;
+}
+
+message CommodityItemResponse {
+  int32 id = 1;
+  string name = 2;
+  string technoMapName = 3;
+  int32 technoMapId = 4;
+}
+
+message WorkShopMapResponse {
+  int32 id = 1;
+  WorkShopMap workShopMap = 2;
+}
+
+message TechnoMapRequest {
+  int32 id = 1;
+}
+
+message TechnoMapResponse {
+  int32 id = 1;
+  TechnoMap technoMap = 2;
+}
+
+message CreateTechnoMapRequest {
+  string technoMapName = 1;
+  int32 commodityItemId = 2;
+  repeated Stage technoMapStages = 3;
+}
+
+message CreateTechnoMapResponse {
+  int32 technoMapId = 1;
+}
