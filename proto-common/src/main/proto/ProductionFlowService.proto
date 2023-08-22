@@ -10,15 +10,14 @@ option java_package = "ru.okibiteam.production_flow_service.grpc";
 
 service ProductionFlowService {
   rpc getAllCommodityItems(google.protobuf.Empty) returns (stream CommodityItemResponse) {}
-  rpc createWorkShopMap(WorkShopMap) returns(WorkShopMapResponse) {}
   rpc getAllWorkShopMap(google.protobuf.Empty) returns (stream WorkShopMapResponse) {}
   rpc createTechnoMap(CreateTechnoMapRequest) returns(CreateTechnoMapResponse) {}
   rpc getTechnoMap(TechnoMapRequest) returns (TechnoMapResponse) {}
 }
 
-message Decimal {
-  int64 integerPart = 1;
-  int32 fractionalPart = 2;
+message Money {
+  int64 rubles = 1;
+  int32 cents = 2;
 }
 
 message Equipment {
@@ -65,19 +64,22 @@ message Stage {
   string name = 1;
   int32 indexInTechnoMap = 2;
   uint32 timeSpent = 3;
-  Decimal moneyExpensesInRubles = 4;
+  Money moneyExpensesInRubles = 4;
   int32 workshopMapId = 5;
   int32 equipmentInstanceId = 6;
   int32 createrId = 7;
   repeated ItemForProduction inputItemsForProduction = 8;
   repeated CommodityItem inputCommodityItem = 9;
 }
+message CommodityItemTechnoMaps {
+  string technoMapName = 1;
+  int32 technoMapId = 2;
+}
 
 message CommodityItemResponse {
   int32 id = 1;
   string name = 2;
-  string technoMapName = 3;
-  int32 technoMapId = 4;
+  repeated CommodityItemTechnoMaps commodityItemTechnoMaps = 3;
 }
 
 message WorkShopMapResponse {

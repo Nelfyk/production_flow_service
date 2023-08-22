@@ -9,7 +9,6 @@ import java.io.Serializable;
 @Table(name = "input_item_for_production")
 @Data
 public class InputItemForProduction {
-    //    @EmbeddedId
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

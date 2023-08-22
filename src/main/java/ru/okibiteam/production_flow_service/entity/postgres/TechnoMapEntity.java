@@ -13,7 +13,7 @@ public class TechnoMapEntity {
     private int id;
     @Column(name = "name")
     private String name;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "commodity_item_id", referencedColumnName = "id")
     private CommodityItem commodityItem;
     public TechnoMapEntity() {

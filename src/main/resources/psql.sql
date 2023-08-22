@@ -19,12 +19,12 @@ CREATE TABLE stage
 (
     id                       SERIAL PRIMARY KEY,
     name                     TEXT           NOT NULL,
-    index_in_technomap       INT            NOT NULL,
-    time_spent_in_seconds    BIGINT         NOT NULL,
-    money_expenses_in_rubles DECIMAL(19, 2) NOT NULL,
-    workshop_map_id          INT            NOT NULL,
+    index_in_technomap       INT            NOT NULL CHECK (index_in_technomap >= 0),
+    time_spent_in_seconds    BIGINT         NOT NULL CHECK (time_spent_in_seconds >= 0),
+    money_expenses_in_rubles DECIMAL(19, 2) NOT NULL CHECK (money_expenses_in_rubles >= 0),
+    workshop_map_id          INT            NOT NULL CHECK (workshop_map_id >= 0),
     create_time              TIMESTAMPTZ    NOT NULL,
-    creater_id               int            NOT NULL,
+    creater_id               int            NOT NULL CHECK (creater_id >= 0),
     equipment_instance_id    INT REFERENCES equipment_instance (id)
 );
 
@@ -47,21 +47,21 @@ CREATE TABLE techno_map
 );
 CREATE TABLE stage_techno_map
 (
-    id SERIAL PRIMARY KEY,
-    stage_id      INT REFERENCES stage (id)     NOT NULL,
+    id            SERIAL PRIMARY KEY,
+    stage_id      INT REFERENCES stage (id)      NOT NULL,
     techno_map_id INT REFERENCES techno_map (id) NOT NULL
 );
 CREATE TABLE input_commodity_items
 (
-    id SERIAL PRIMARY KEY,
+    id                SERIAL PRIMARY KEY,
     commodity_item_id INT REFERENCES commodity_item (id) NOT NULL,
-    stage_id          INT REFERENCES stage (id)         NOT NULL
+    stage_id          INT REFERENCES stage (id)          NOT NULL
 );
 CREATE TABLE input_item_for_production
 (
-    id SERIAL PRIMARY KEY,
+    id                     SERIAL PRIMARY KEY,
     item_for_production_id INT REFERENCES item_for_production (id) NOT NULL,
-    stage_id               INT REFERENCES stage (id)              NOT NULL
+    stage_id               INT REFERENCES stage (id)               NOT NULL
 );
 
 ------------------------------------------------------------------------------------
@@ -89,14 +89,15 @@ VALUES ('1D243FD2314FV3', 1),
        ('G32YUG234TBGI5', 3),
        ('SDF9834HF92851', 4);
 INSERT INTO stage (name, index_in_technomap, time_spent_in_seconds, money_expenses_in_rubles, workshop_map_id,
-                    create_time, creater_id, equipment_instance_id)
+                   create_time, creater_id, equipment_instance_id)
 VALUES ('Нарезка деталей', 1, 5600, 30000.20, 1, now(), 1, 1),
        ('Смазывание деталей', 1, 3600, 500, 1, now(), 1, 4);
 INSERT INTO input_commodity_items (commodity_item_id, stage_id)
 VALUES (3, 1),
        (5, 2);
 INSERT INTO stage_techno_map (stage_id, techno_map_id)
-VALUES (1, 1);
+VALUES (1, 1),
+       (2, 1);
 INSERT INTO item_for_production (name, created_stage)
 VALUES ('Детали', 1);
 INSERT INTO input_item_for_production (item_for_production_id, stage_id)

@@ -1,5 +1,8 @@
+include proto-common/.gitignore
+
 HELP.md
 target/*
+proto-common/target
 !target/production_flow_service-0.0.1-SNAPSHOT.jar
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/

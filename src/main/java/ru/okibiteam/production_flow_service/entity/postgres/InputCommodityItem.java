@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Table(name = "input_commodity_items")
 @Data
 public class InputCommodityItem {
-//    @EmbeddedId
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

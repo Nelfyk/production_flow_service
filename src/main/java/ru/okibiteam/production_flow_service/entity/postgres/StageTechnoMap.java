@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Table(name = "stage_techno_map")
 @Data
 public class StageTechnoMap {
-    //    @EmbeddedId
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
