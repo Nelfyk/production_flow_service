@@ -45,7 +45,7 @@ public class TechnoMapService {
                     stages.getIndexInTechnoMap(),
                     stages.getTimeSpent(),
                     new BigDecimal(stages.getMoneyExpensesInRubles().getRubles() +
-                            (stages.getMoneyExpensesInRubles().getRubles() / 100)),
+                            (stages.getMoneyExpensesInRubles().getCents() / 100.)),
                     stages.getWorkshopMapId(),
                     equipmentInstance.getId(),
                     stages.getCreaterId(),

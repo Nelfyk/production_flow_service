@@ -6,7 +6,6 @@ import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
-import org.springframework.transaction.annotation.Transactional;
 import ru.okibiteam.production_flow_service.grpc.*;
 import ru.okibiteam.production_flow_service.service.CommodityItemService;
 import ru.okibiteam.production_flow_service.service.TechnoMapService;
@@ -21,7 +20,6 @@ public class ProductionFlowServiceController extends ProductionFlowServiceGrpc.P
     private GridFsTemplate gridFsTemplate;
 
     @Override
-    @Transactional
     public void getAllCommodityItems(Empty empty, StreamObserver<CommodityItemResponse> streamObserver) {
         try {
             commodityItemService.getAllCommodityItems(streamObserver);
@@ -32,7 +30,6 @@ public class ProductionFlowServiceController extends ProductionFlowServiceGrpc.P
     }
 
     @Override
-    @Transactional
     public void getAllWorkShopMap(Empty empty, StreamObserver<WorkShopMapResponse> streamObserver) {
 
     }
@@ -49,7 +46,6 @@ public class ProductionFlowServiceController extends ProductionFlowServiceGrpc.P
     }
 
     @Override
-    @Transactional
     public void getTechnoMap(TechnoMapRequest request,
                              StreamObserver<TechnoMapResponse> streamObserver) {
         try {
