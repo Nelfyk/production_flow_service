@@ -29,8 +29,6 @@ public class TechnoMapService {
     private ItemForProductionRepository itemForProductionRepository;
     @Autowired
     private InputCommodityItemRepository inputCommodityItemRepository;
-    @Autowired
-    private StageTechnoMapRepository stageTechnoMapRepository;
 
     @Transactional(rollbackForClassName = {"java.lang.Exception"})
     public void saveNewTechnoMap(CreateTechnoMapRequest request,
@@ -49,6 +47,7 @@ public class TechnoMapService {
                             (stages.getMoneyExpensesInRubles().getCents() / 100.)),
                     stages.getWorkshopMapId(),
                     stages.getCreatorId(),
+                    technoMapEntity,
                     serialNumbers
             ));
             stages.getInputItemsForProductionList().forEach(e -> {
@@ -83,37 +82,37 @@ public class TechnoMapService {
     @Transactional(rollbackForClassName = {"java.lang.Exception"})
     public void getTechnoMap(TechnoMapRequest request,
                              StreamObserver<TechnoMapResponse> streamObserver) {
-        var technoMapEntities = stageTechnoMapRepository.findByTechnoMapEntityId(request.getId());
-        var stages = technoMapEntities.stream().map(StageTechnoMap::getTechnoMapStagesEntity).map(e -> Stage.newBuilder()
-                .setName(e.getName())
-                .setIndexInTechnoMap(e.getIndexInTechnoMap())
-                .setTimeSpent(e.getTimeSpentInSeconds())
-                .setMoneyExpensesInRubles(Money.newBuilder()
-                        .setRubles(e.getMoneyExpensesInRubles().longValue())
-                        .setCents(e.getMoneyExpensesInRubles()
-                                .remainder(BigDecimal.ONE)
-                                .multiply(new BigDecimal(100)).intValue())
-                        .build())
-                .setWorkshopMapId(e.getWorkshopMapId())
-                .setSerialNumbersId(e.getSerialNumbers().getId())
-                .setCreatorId(e.getCreatorId())
-                .addAllInputItemsForProduction(inputItemForProductionRepository.getByTechnoMapStagesEntityId(e.getId())
-                        .stream().map(InputItemForProduction::getItemForProduction)
-                        .map(el -> ru.okibiteam.production_flow_service.grpc.ItemForProduction.newBuilder()
-                                .setId(el.getId())
-                                .setName(el.getName())
+        var technoMapEntity = technoMapsRepository.getById(request.getId());
+        var stages = technoMapStagesEntityRepository.findTechnoMapStagesEntitiesByTechnoMapEntityId(technoMapEntity.getId()).
+                stream().map(e -> Stage.newBuilder()
+                        .setName(e.getName())
+                        .setIndexInTechnoMap(e.getIndexInTechnoMap())
+                        .setTimeSpent(e.getTimeSpentInSeconds())
+                        .setMoneyExpensesInRubles(Money.newBuilder()
+                                .setRubles(e.getMoneyExpensesInRubles().longValue())
+                                .setCents(e.getMoneyExpensesInRubles()
+                                        .remainder(BigDecimal.ONE)
+                                        .multiply(new BigDecimal(100)).intValue())
                                 .build())
-                        .toList())
-                .addAllInputCommodityItem(inputCommodityItemRepository.getByTechnoMapStagesEntityId(e.getId())
-                        .stream().map(InputCommodityItem::getCommodityItem)
-                        .map(el -> ru.okibiteam.production_flow_service.grpc.CommodityItem.newBuilder()
-                                .setId(el.getId())
-                                .setName(el.getName())
-                                .build())
-                        .toList())
-                .build()
-        ).toList();
-        var technoMapEntity = technoMapEntities.stream().map(StageTechnoMap::getTechnoMapEntity).findFirst().get();
+                        .setWorkshopMapId(e.getWorkshopMapId())
+                        .setSerialNumbersId(e.getSerialNumbersEntity().getId())
+                        .setCreatorId(e.getCreatorId())
+                        .addAllInputItemsForProduction(inputItemForProductionRepository.getByTechnoMapStagesEntityId(e.getId())
+                                .stream().map(InputItemForProduction::getItemForProduction)
+                                .map(el -> ru.okibiteam.production_flow_service.grpc.ItemForProduction.newBuilder()
+                                        .setId(el.getId())
+                                        .setName(el.getName())
+                                        .build())
+                                .toList())
+                        .addAllInputCommodityItem(inputCommodityItemRepository.getByTechnoMapStagesEntityId(e.getId())
+                                .stream().map(InputCommodityItem::getCommodityItem)
+                                .map(el -> ru.okibiteam.production_flow_service.grpc.CommodityItem.newBuilder()
+                                        .setId(el.getId())
+                                        .setName(el.getName())
+                                        .build())
+                                .toList())
+                        .build()
+                ).toList();
         streamObserver.onNext(TechnoMapResponse.newBuilder()
                 .setId(technoMapEntity.getId())
                 .setTechnoMap(TechnoMap

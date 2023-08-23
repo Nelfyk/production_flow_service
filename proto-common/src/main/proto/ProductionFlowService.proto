@@ -25,7 +25,7 @@ message Equipment {
 }
 
 message SerialNumbers {
-  string name = 1;
+  string serialNumber = 1;
   Equipment equipment = 2;
 }
 
@@ -83,7 +83,7 @@ message CommodityItemResponse {
 }
 
 message WorkShopMapResponse {
-  int32 id = 1;
+  string id = 1;
   WorkShopMap workShopMap = 2;
 }
 

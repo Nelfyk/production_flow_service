@@ -27,16 +27,19 @@ public class TechnoMapStagesEntity {
     private ZonedDateTime createTime;
     @Column(name = "creator_id")
     private int creatorId;
+    @ManyToOne
+    @JoinColumn(name = "techno_map_id", referencedColumnName = "id")
+    private TechnoMapEntity technoMapEntity;
     @OneToOne
     @JoinColumn(name = "serial_numbers_id", referencedColumnName = "id")
-    private SerialNumbers serialNumbers;
+    private SerialNumbersEntity serialNumbersEntity;
 
     public TechnoMapStagesEntity() {
     }
 
     public TechnoMapStagesEntity(String name, int indexInTechnoMap, int timeSpentInSeconds,
-                                 BigDecimal moneyExpensesInRubles, int workshopMapId,
-                                 int creatorId, SerialNumbers serialNumbers) {
+                                 BigDecimal moneyExpensesInRubles, int workshopMapId, int creatorId,
+                                 TechnoMapEntity technoMapEntity, SerialNumbersEntity serialNumbersEntity) {
         this.name = name;
         this.indexInTechnoMap = indexInTechnoMap;
         this.timeSpentInSeconds = timeSpentInSeconds;
@@ -44,6 +47,7 @@ public class TechnoMapStagesEntity {
         this.workshopMapId = workshopMapId;
         this.createTime = ZonedDateTime.now();
         this.creatorId = creatorId;
-        this.serialNumbers = serialNumbers;
+        this.technoMapEntity = technoMapEntity;
+        this.serialNumbersEntity = serialNumbersEntity;
     }
 }

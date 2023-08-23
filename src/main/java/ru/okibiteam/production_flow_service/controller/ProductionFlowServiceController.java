@@ -5,10 +5,10 @@ import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import ru.okibiteam.production_flow_service.grpc.*;
 import ru.okibiteam.production_flow_service.service.CommodityItemService;
 import ru.okibiteam.production_flow_service.service.TechnoMapService;
+import ru.okibiteam.production_flow_service.service.WorkShopMapService;
 
 @GrpcService
 public class ProductionFlowServiceController extends ProductionFlowServiceGrpc.ProductionFlowServiceImplBase {
@@ -17,7 +17,7 @@ public class ProductionFlowServiceController extends ProductionFlowServiceGrpc.P
     @Autowired
     private CommodityItemService commodityItemService;
     @Autowired
-    private GridFsTemplate gridFsTemplate;
+    private WorkShopMapService workShopMapService;
 
     @Override
     public void getAllCommodityItems(Empty empty, StreamObserver<CommodityItemResponse> streamObserver) {
@@ -26,13 +26,18 @@ public class ProductionFlowServiceController extends ProductionFlowServiceGrpc.P
         } catch (Exception e) {
             Status status = Status.NOT_FOUND;
             streamObserver.onError(status.asRuntimeException());
-            e.printStackTrace();
         }
     }
 
     @Override
     public void getAllWorkShopMap(Empty empty, StreamObserver<WorkShopMapResponse> streamObserver) {
-
+        try {
+            workShopMapService.getAllWorkShopMap(streamObserver);
+        } catch (Exception e) {
+            Status status = Status.NOT_FOUND;
+            streamObserver.onError(status.asRuntimeException());
+            e.printStackTrace();
+        }
     }
 
     @Override

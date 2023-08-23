@@ -7,25 +7,24 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
 import java.util.List;
-import java.util.Map;
 
-@Document(collation = "work_shop_map")
+@Document(collection = "work_shop_map")
 @Data
 public class WorkShopMapEntity {
     @Id
     private ObjectId id;
     private String filename;
-    @Field(name = "content_type")
-    private String contentType;
-    @Field(name = "image_data")
-    private List<Equipment> equipments;
+    @Field(name = "filename_id")
+    private ObjectId filenameId;
+    @Field(name = "equipments")
+    private List<EquipmentEntity> equipmentEntities;
 
     public WorkShopMapEntity() {
     }
 
-    public WorkShopMapEntity(String filename, String contentType, List<Equipment> equipments) {
+    public WorkShopMapEntity(String filename, ObjectId filenameId, List<EquipmentEntity> equipmentEntities) {
         this.filename = filename;
-        this.contentType = contentType;
-        this.equipments = equipments;
+        this.filenameId = filenameId;
+        this.equipmentEntities = equipmentEntities;
     }
 }
