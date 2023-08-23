@@ -38,7 +38,6 @@ public class TechnoMapService {
         List<Stage> technoMapStages = request.getTechnoMapStagesList();
         for (var stages : technoMapStages) {
             var serialNumbers = serialNumbersRepository.getById(stages.getSerialNumbersId());
-            System.out.println(serialNumbers);
             TechnoMapStagesEntity technoMapStagesEntity = technoMapStagesEntityRepository.save(new TechnoMapStagesEntity(
                     stages.getName(),
                     stages.getIndexInTechnoMap(),

@@ -11,5 +11,5 @@ public class EquipmentEntity {
     private int equipmentInstanceId;
     @Field(name = "serial_numbers_id")
     private int serialNumbersId;
-    private List<Coordinates> coords;
+    private List<CoordinatesEntity> coords;
 }

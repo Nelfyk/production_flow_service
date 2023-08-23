@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.okibiteam.production_flow_service.grpc.Coordinates;
+import ru.okibiteam.production_flow_service.entity.mongo.CoordinatesEntity;
 import ru.okibiteam.production_flow_service.grpc.EquipmentsOnMap;
 import ru.okibiteam.production_flow_service.grpc.WorkShopMap;
 import ru.okibiteam.production_flow_service.grpc.WorkShopMapResponse;
@@ -45,10 +45,7 @@ public class WorkShopMapService {
                                                 .map(el -> EquipmentsOnMap.newBuilder()
                                                         .setSerialNumbers(serialNumbersRepository.getById(el.getSerialNumbersId()).toProtoSerialNumbers())
                                                         .addAllCoordinates(el.getCoords().stream()
-                                                                .map(elem -> Coordinates.newBuilder()
-                                                                        .setX(elem.getX())
-                                                                        .setY(elem.getY())
-                                                                        .build())
+                                                                .map(CoordinatesEntity::toProtoCoordinates)
                                                                 .toList())
                                                         .build())
                                                 .toList()))
