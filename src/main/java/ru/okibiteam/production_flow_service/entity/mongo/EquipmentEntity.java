@@ -12,4 +12,13 @@ public class EquipmentEntity {
     @Field(name = "serial_numbers_id")
     private int serialNumbersId;
     private List<CoordinatesEntity> coords;
+
+    public EquipmentEntity() {
+    }
+
+    public EquipmentEntity(int equipmentInstanceId, int serialNumbersId, List<CoordinatesEntity> coords) {
+        this.equipmentInstanceId = equipmentInstanceId;
+        this.serialNumbersId = serialNumbersId;
+        this.coords = coords;
+    }
 }

@@ -1,0 +1,7 @@
+FROM mongo:latest
+
+ENV MONGO_INITDB_ROOT_USERNAME=bestuser
+ENV MONGO_INITDB_ROOT_PASSWORD=bestuser
+ENV MONGO_INITDB_DATABASE=admin
+
+CMD ["--auth"]
