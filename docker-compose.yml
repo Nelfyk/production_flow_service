@@ -1,21 +1,22 @@
 version: "3.7"
 services:
   production_flow_service:
+    image: production_flow_service
+    container_name: production_flow_service
     build:
       context: .
-      dockerfile: Dockerfile
-    networks:
-      - backend
+      dockerfile: Dockerfile_java
     ports:
       - "20003:8081"
     depends_on:
       - production_flow_service_postgresql
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://production_flow_service_postgresql:5432/production_flow
+      - production_flow_service_mongo
   production_flow_service_postgresql:
-    image: postgres:14.8-alpine
-    networks:
-      - backend
+    image: production_flow_service_postgresql
+    container_name: production_flow_service_postgresql
+    build:
+      context: .
+      dockerfile: Dockerfile_postgres
     ports:
       - "20004:5432"
     environment:
@@ -23,8 +24,20 @@ services:
       - POSTGRES_USER=bestuser
       - POSTGRES_PASSWORD=bestuser
     volumes:
-      - ./etc/production_flow_service/database:/var/lib/postgresql/data:rw
-      - ./src/main/resources/psql.sql:/docker-entrypoint-initdb.d/psql.sql
-networks:
-  backend:
-    name: production_flow_service-network
+      - /etc/production_flow_service/database:/var/lib/postgresql/data:rw
+      - ./src/main/resources/postgres/psql.sql:/docker-entrypoint-initdb.d/psql.sql
+  production_flow_service_mongo:
+    image: production_flow_service_mongo
+    container_name: production_flow_service_mongo
+    build:
+      context: .
+      dockerfile: Dockerfile_mongo
+    ports:
+      - "20005:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=bestuser
+      - MONGO_INITDB_ROOT_PASSWORD=bestuser
+      - MONGO_INITDB_DATABASE=admin
+    command: [ "--auth" ]
+    volumes:
+      - /etc/production_flow_service/database/mongo:/var/lib/mongodb/:rw

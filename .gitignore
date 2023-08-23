@@ -35,3 +35,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+#Other
+/scripts/docker_clean_all.sh
