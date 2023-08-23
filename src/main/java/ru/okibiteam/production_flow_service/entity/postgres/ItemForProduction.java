@@ -14,14 +14,14 @@ public class ItemForProduction {
     @Column(name = "name")
     private String name;
     @OneToOne
-    @JoinColumn(name = "created_stage", referencedColumnName = "id")
-    private StageEntity stageEntity;
+    @JoinColumn(name = "created_techno_map_stages_id", referencedColumnName = "id")
+    private TechnoMapStagesEntity technoMapStagesEntity;
 
     public ItemForProduction() {
     }
 
-    public ItemForProduction(String name, StageEntity stageEntity) {
+    public ItemForProduction(String name, TechnoMapStagesEntity technoMapStagesEntity) {
         this.name = name;
-        this.stageEntity = stageEntity;
+        this.technoMapStagesEntity = technoMapStagesEntity;
     }
 }

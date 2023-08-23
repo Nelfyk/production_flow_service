@@ -26,6 +26,7 @@ public class ProductionFlowServiceController extends ProductionFlowServiceGrpc.P
         } catch (Exception e) {
             Status status = Status.NOT_FOUND;
             streamObserver.onError(status.asRuntimeException());
+            e.printStackTrace();
         }
     }
 

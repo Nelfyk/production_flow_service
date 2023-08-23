@@ -15,7 +15,7 @@ public class CommodityItem {
     private int id;
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "commodityItem")
+    @OneToMany(mappedBy = "commodityItem", fetch = FetchType.EAGER)
     private List<TechnoMapEntity> technoMaps;
 
     public CommodityItem() {

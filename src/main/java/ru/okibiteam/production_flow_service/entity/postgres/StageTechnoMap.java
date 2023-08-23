@@ -12,8 +12,8 @@ public class StageTechnoMap {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    @JoinColumn(name = "stage_id", referencedColumnName = "id")
-    private StageEntity stageEntity;
+    @JoinColumn(name = "techno_map_stages_id", referencedColumnName = "id")
+    private TechnoMapStagesEntity technoMapStagesEntity;
     @ManyToOne
     @JoinColumn(name = "techno_map_id", referencedColumnName = "id")
     private TechnoMapEntity technoMapEntity;

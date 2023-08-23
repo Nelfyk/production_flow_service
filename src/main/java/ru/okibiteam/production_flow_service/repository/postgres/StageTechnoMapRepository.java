@@ -9,6 +9,5 @@ import java.util.List;
 
 @Repository
 public interface StageTechnoMapRepository extends JpaRepository<StageTechnoMap, Integer> {
-//    @Query(value = "SELECT * FROM stage_techno_map WHERE techno_map_id = :id", nativeQuery = true)
     List<StageTechnoMap> findByTechnoMapEntityId(int id);
 }

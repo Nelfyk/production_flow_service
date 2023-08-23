@@ -24,7 +24,7 @@ message Equipment {
   string name = 1;
 }
 
-message EquipmentInstance {
+message SerialNumbers {
   string name = 1;
   Equipment equipment = 2;
 }
@@ -35,7 +35,7 @@ message Coordinates {
 }
 
 message EquipmentsOnMap {
-  EquipmentInstance equipmentInstance = 1;
+  SerialNumbers serialNumbers = 1;
   repeated Coordinates coordinates = 2;
 }
 
@@ -66,8 +66,8 @@ message Stage {
   uint32 timeSpent = 3;
   Money moneyExpensesInRubles = 4;
   int32 workshopMapId = 5;
-  int32 equipmentInstanceId = 6;
-  int32 createrId = 7;
+  int32 serialNumbersId = 6;
+  int32 creatorId = 7;
   repeated ItemForProduction inputItemsForProduction = 8;
   repeated CommodityItem inputCommodityItem = 9;
 }

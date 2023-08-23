@@ -15,14 +15,14 @@ public class InputCommodityItem {
     @JoinColumn(name = "commodity_item_id", referencedColumnName = "id")
     private CommodityItem commodityItem;
     @OneToOne
-    @JoinColumn(name = "stage_id", referencedColumnName = "id")
-    private StageEntity stageEntity;
+    @JoinColumn(name = "techno_map_stages_id", referencedColumnName = "id")
+    private TechnoMapStagesEntity technoMapStagesEntity;
 
     public InputCommodityItem() {
     }
 
-    public InputCommodityItem(CommodityItem commodityItem, StageEntity stageEntity) {
+    public InputCommodityItem(CommodityItem commodityItem, TechnoMapStagesEntity technoMapStagesEntity) {
         this.commodityItem = commodityItem;
-        this.stageEntity = stageEntity;
+        this.technoMapStagesEntity = technoMapStagesEntity;
     }
 }
