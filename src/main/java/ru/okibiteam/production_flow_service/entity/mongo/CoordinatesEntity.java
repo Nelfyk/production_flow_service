@@ -1,8 +1,10 @@
 package ru.okibiteam.production_flow_service.entity.mongo;
 
 import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
 import ru.okibiteam.production_flow_service.grpc.Coordinates;
 
+@Document
 @Data
 public class CoordinatesEntity {
     private int x;
