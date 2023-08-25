@@ -24,7 +24,7 @@ services:
       - POSTGRES_USER=bestuser
       - POSTGRES_PASSWORD=bestuser
     volumes:
-      - /etc/production_flow_service/database:/var/lib/postgresql/data:rw
+#      - /etc/production_flow_service/database:/var/lib/postgresql/data:rw
       - ./src/main/resources/postgres/psql.sql:/docker-entrypoint-initdb.d/psql.sql
   production_flow_service_mongo:
     image: production_flow_service_mongo
@@ -39,5 +39,5 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=bestuser
       - MONGO_INITDB_DATABASE=admin
     command: [ "--auth" ]
-    volumes:
-      - /etc/production_flow_service/database/mongo:/var/lib/mongodb/:rw
+#    volumes:
+#      - /etc/production_flow_service/database/mongo:/var/lib/mongodb/:rw
